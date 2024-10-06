@@ -1,14 +1,23 @@
 import { describe, expect, it } from "bun:test";
-import { Elysia } from "elysia";
+import { Server } from "../src/sever";
 
-describe("Elysia", () => {
-  it("return a response", async () => {
-    const app = new Elysia().get("/", () => "hi");
+describe("Home", () => {
+  const server = new Server();
+  server.configure();
 
-    const response = await app
-      .handle(new Request("http://localhost/"))
-      .then((res) => res.text());
+  it("return proper response", async () => {
+    // Arrange
+    const req = new Request("http://localhost/");
 
-    expect(response).toBe("hi");
+    // Act
+    const res = await server.handle(req);
+
+    // Assert
+
+    expect(res.status).toBe(200);
+
+    const data = await res.json();
+    expect(data.name).toBe("Book Store");
+    expect(data.version).toBe("1.0.0");
   });
 });

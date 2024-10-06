@@ -1,6 +1,6 @@
 import { Elysia } from "elysia";
 import swagger from "@elysiajs/swagger";
-import { IFeature } from "./core";
+import homeFeature from "./features/home";
 
 export class Server {
   private _app: Elysia;
@@ -10,8 +10,8 @@ export class Server {
     this._app.use(swagger());
   }
 
-  public configure(features: IFeature[]) {
-    features.forEach((f) => f.configure(this._app));
+  public configure() {
+    homeFeature.configure(this._app);
   }
 
   public run() {
@@ -19,5 +19,10 @@ export class Server {
     console.info(
       `Server is running at ${this._app.server?.hostname}:${this._app.server?.port}`
     );
+  }
+
+  // Used in testing only
+  public handle(req: Request) {
+    return this._app.handle(req);
   }
 }
