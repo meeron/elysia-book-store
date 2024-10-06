@@ -1,0 +1,21 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("ELYSIA_BS_DB")
+}
+
+model Author {
+  id            String    @id @default(uuid()) @db.Uuid
+  name          String
+  bio           String
+  date_of_birth DateTime  @db.Timestamptz()
+  date_of_death DateTime? @db.Timestamptz()
+
+  @@map("authors")
+}
