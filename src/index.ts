@@ -1,7 +1,7 @@
-import { Elysia } from "elysia";
+import { Server } from "./sever";
+import homeFeature from "./features/home";
 
-const app = new Elysia().get("/", () => "Hello Elysia").listen(3000);
+const server = new Server();
+server.configure([homeFeature]);
 
-console.log(
-  `🦊 Elysia is running at ${app.server?.hostname}:${app.server?.port}`
-);
+server.run();
