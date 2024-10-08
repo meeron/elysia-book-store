@@ -1,6 +1,7 @@
 import { Elysia } from "elysia";
 import swagger from "@elysiajs/swagger";
 import homeFeature from "./features/home";
+import authorsFeature from "./features/authors";
 
 export class Server {
   private _app: Elysia;
@@ -12,6 +13,7 @@ export class Server {
 
   public configure() {
     homeFeature.configure(this._app);
+    authorsFeature.configure(this._app);
   }
 
   public run() {
